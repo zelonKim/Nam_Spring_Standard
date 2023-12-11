@@ -1,0 +1,31 @@
+package com.fastcampus.ch2;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class TwoDice {
+	@RequestMapping("/rollDice")
+	public void main(HttpServletResponse res) throws IOException {
+		res.setContentType("text/html");
+		res.setCharacterEncoding("utf-8");
+		PrintWriter result = res.getWriter();
+	
+		result.println("<html>");
+		result.println("<head>");
+		result.println("</head>");
+		result.println("<body>");
+		result.println("<img src='/img/dice1.jpg>");
+		result.println("<img src='/img/dice2.jpg>");
+		result.println("</body>");
+		result.println("</html>");
+		
+		
+	
+	}
+}

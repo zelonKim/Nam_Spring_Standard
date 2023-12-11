@@ -1,0 +1,9 @@
+INDEX VERSION 1.131
+C:\Users\ksz18\Documents\workspace-sts-3.9.17.RELEASE\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2529904180.index
+\ch2\src\main\java
+C:\Users\ksz18\Documents\workspace-sts-3.9.17.RELEASE\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1341279502.index
+\firstSpring\src\main\java
+C:\Users\ksz18\Documents\workspace-sts-3.9.17.RELEASE\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3518962449.index
+\ch2\src\main\java
+C:\Users\ksz18\Documents\workspace-sts-3.9.17.RELEASE\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3747148736.index
+\ch3\src\main\java
