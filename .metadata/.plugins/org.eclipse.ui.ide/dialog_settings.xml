@@ -116,4 +116,7 @@
 		<list key="ENABLED_TRANSFERS">
 		</list>
 	</section>
+	<section name="ResourceNavigator">
+		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
+	</section>
 </section>

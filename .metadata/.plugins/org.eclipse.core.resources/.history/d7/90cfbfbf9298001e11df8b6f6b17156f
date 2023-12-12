@@ -1,0 +1,51 @@
+package com.fastcampus.ch2;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.Enumeration;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class YoilTeller {
+	
+	@RequestMapping("/getYoil")
+	public void main(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		String year = req.getParameter("year"); // 요청객체.getParameter("파라미터명"): 쿼리스트링의 해당 파라미터값을 문자열로 반환함.
+		String month = req.getParameter("month");
+		String day = req.getParameter("day");
+		
+//		Enumeration paramNames = req.getParameterNames(); // 쿼리스트링의 '파라미터명'만 담아서 열거형의 Enum으로 반환함.
+//		Map paramMap = req.getParameterMap(); // 쿼리스트링의 '파라미터명'과 '파라미터값'을 담아서 키-값쌍의 Map으로 반환함.
+		
+		int yyyy = Integer.parseInt(year);
+		int mm = Integer.parseInt(month);
+		int dd = Integer.parseInt(day);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(yyyy, mm-1, dd);
+		
+		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+		char yoil = " 일월화수목금토".charAt(dayOfWeek);
+
+		
+		///////////////////////////
+		
+		
+		res.setContentType("text/html"); // 컨텐츠의 타입을 설정해줌.
+		res.setCharacterEncoding("utf-8"); // 인코딩 방식을 설정해줌.
+		
+		PrintWriter result = res.getWriter();// 브라우저로의 출력 스트림을 얻음.
+		
+		result.println(year + "년 " + month + "월 " + day + "일은 ");
+		result.println(yoil + "요일입니다.");
+
+	}
+
+}
