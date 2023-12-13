@@ -14,15 +14,15 @@ public class YoilTellerMVC { // http://localhost:8080/ch2/getYoilMVC?year=2023&m
 		
 		// 유효성 검사
 		if(!isValid(year, month, day))
-			return "YoilError";  // src/main/webapp/WEB-INF/views/yoilError.jsp 뷰를 사용하여 출력하도록 함. 
+			return "YoilError";  // src/main/webapp/WEB-INF/views/yoilError.jsp 뷰를 사용하여 출력하도록 함.
 			// 뷰 사용 기본경로는 servlet-context.xml파일에 지정되어 있음.
 		
 		// 요일 계산
 		char yoil = getYoil(year, month, day);
 
 		
-		// 계산한 결과를 Model클래스의 모델객체에 저장해줌. 
-		mod.addAttribute("Year", year);  // 모델객채명.addAttribute("속성명", 속성값) 
+		// 계산한 결과를 모델객체에 저장
+		mod.addAttribute("Year", year);  
 		mod.addAttribute("Month", month);
 		mod.addAttribute("Day", day);
 		mod.addAttribute("Yoil", yoil);

@@ -1,0 +1,12 @@
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+<P> 올해는 <%=request.getParameter("year") %> 입니다. </P> <!-- 뷰의 request 기본 객체에 요청받은 URL이 담김. -->
+<P> 올해는 ${year} 입니다. </P> 
+</body>
+</html>

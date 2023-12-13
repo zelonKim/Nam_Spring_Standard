@@ -1,0 +1,47 @@
+package com.fastcampus.ch2;
+
+import java.io.IOException;
+import java.util.Calendar;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+
+@Controller
+public class YoilTellerMVC2 { 
+	@RequestMapping("/getYoilMVC")
+	public String main(MyDate date,  Model mod) {
+		
+		// 유효성 검사
+		if(!isValid(date))
+			return "YoilError";  
+		
+		// 요일 계산
+		char yoil = getYoil(date);
+
+		
+		// 계산한 결과를 모델객체에 저장
+		mod.addAttribute("Year", year);  
+		mod.addAttribute("Month", month);
+		mod.addAttribute("Day", day);
+		mod.addAttribute("Yoil", yoil);
+		
+		
+	return "Yoil"; 
+	} 
+
+	
+	private boolean isValid(int yea, int month, int day) {
+		return true;
+	}
+
+
+	private char getYoil(int yea, int month, int day) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(yea, month-1, day);
+		
+		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+		return " 일월화수목금토".charAt(dayOfWeek);
+	}
+	
+}
