@@ -16,3 +16,6 @@
 1702448949294	Copy compilation unit
 1702452344159	Rename type 'YoilTellerMVC3'
 1702453673339	Copy compilation unit
+1702513093713	Move 'registerForm.html' to 'views'
+1702513115729	Rename resource 'registerForm.html'
+1702515634559	Move 'registerInfo.jsp' to 'views'
