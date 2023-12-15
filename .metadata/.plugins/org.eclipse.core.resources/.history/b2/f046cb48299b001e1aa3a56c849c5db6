@@ -1,0 +1,14 @@
+package com.fastcampus.ch2;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+//@ControllerAdvice
+//public class GlobalCatcher {
+//	@ExceptionHandler(Exception.class)
+//	public String catcher2(Exception ex, Model mod) {
+//		mod.addAttribute("Ex", ex);
+//		return "error";
+//	}
+//}

@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.net.URLDecoder" %>
+<%@ page session="false" %> <!-- 로그인 화면에서는 세션을 시작하지 않음. -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,12 +67,13 @@
 		<i class="fa fa-exclamation-circle"> ${param.msg}</i>            
 	    </c:if>        
 	</div>
-        <input type="text" name="id" placeholder="이메일 입력" autofocus>
+        <input type="text" name="id" value="${cookie.myID.value}" placeholder="이메일 입력" autofocus>
         <input type="password" name="pwd" placeholder="비밀번호">
+        <input type="hidden" name="toURL" value="${param.toURL}"> <!-- 로그인 상태가 아닌데 board를 클릭한 경우, <input type="hidden" name="toURL" value="http://localhost:8080/ch2/board/list">가 됨. -->
         <button>로그인</button>
         <div>
-            <label><input type="checkbox" name="rememberId"> 아이디 기억</label> |
-            <a href="">비밀번호 찾기</a> |
+            <label><input type="checkbox" name="rememberId" ${empty cookie.myID.value ? "" : "checked"}> 아이디 기억 </label> |
+            <a href="">비밀번호 찾기</a> | 
             <a href="">회원가입</a>
         </div>
         <script>

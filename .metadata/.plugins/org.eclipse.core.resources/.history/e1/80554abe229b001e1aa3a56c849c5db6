@@ -1,0 +1,30 @@
+package com.fastcampus.ch2;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@ControllerAdvice
+public class ExceptionController {
+	// @RequestMapping("/ex")
+	// public void main() throws Exception { // 반환값이 없는(void) 경우, 자동으로 "맵핑된 URL".jsp 뷰를 반환함. -> ex.jsp
+	
+	
+	@ExceptionHandler(Exception.class)
+	public String catcher(Exception ex, Model mod) {
+		mod.addAttribute("Ex", ex);
+		return "error";
+	}
+	
+	
+//	@RequestMapping("/ex")
+//	public String main() throws Exception {
+//			throw new Exception("예외가 발생했어요");
+//	}
+	
+	@RequestMapping("/ex2")
+	public String main2() throws Exception {
+			throw new Exception("예외가 발생했어요2");
+	}
+}
