@@ -1,0 +1,70 @@
+package com.fastcampus.ch2;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@Controller
+@RequestMapping("register")
+public class RegisterController {
+	// @RequestMapping("/register/add") // GET과 POST 요청방식 모두 허용
+	
+	@RequestMapping("/add") // GET 요청방식만 허용
+	public String register() {
+		return "registerForm"; // WEB-INF/views/registerForm.jsp
+	}//
+	
+	
+	
+	
+	
+	@InitBinder // WebDataBinder의 기본 타입변환 방식을 변경함.
+	public void toDate(WebDataBinder binder) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
+		// 바인더객체.registerCustomEditor(변환하려는 타입, 변환하려는 형식)
+	}
+	
+	
+	
+	@PostMapping("/save") 
+	public String save(User user, BindingResult result ,Model mod) throws Exception {
+		System.out.println(result); // BindingResult 객체 매개변수를 선언 -> 타입 변환에 의한 에러 메시지를 매개변수에 담아줌. & 에러 화면이 출력되는 것을 막아줌. 
+		
+		
+		if(!isValid(user)) {
+			String errMsg = "The user is not valid";
+			mod.addAttribute("msg", errMsg);
+			
+			  //return "redirect:/register/add"; 
+			 return "forward:/register/add";
+			
+			//return "redirect:/register/add?msg=" + errMsg;  // URL 재작성 (rewrite)
+		}
+		
+		return "registerInfo";  // WEB-INF/views/registerInfo.jsp
+	}
+
+	
+	private boolean isValid(User user) {
+		return true;
+	}
+	
+}
+
+
+
+
+
+
+

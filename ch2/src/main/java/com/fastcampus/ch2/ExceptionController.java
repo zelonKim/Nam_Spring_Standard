@@ -16,7 +16,7 @@ public class ExceptionController {
 	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
 	@ExceptionHandler(NullPointerException.class)
 	public String catcher1(Exception ex, Model mod) {
-		mod.addAttribute("Ex", ex);
+		//mod.addAttribute("Ex", ex);
 		return "error";
 	}
 	
@@ -35,4 +35,7 @@ public class ExceptionController {
 	public String main3() throws Exception {
 			throw new ClassCastException("예외가 발생했어요3");
 	}
+	
 }
+
+

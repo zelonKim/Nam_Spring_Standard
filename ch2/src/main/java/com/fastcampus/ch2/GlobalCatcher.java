@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class GlobalCatcher {
 	
-	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(Exception.class)
 	public String catcher2(Exception ex, Model mod) {
-		mod.addAttribute("Ex", ex);
+		//mod.addAttribute("Ex", ex);
 		return "error";
 	}
 }
