@@ -3,6 +3,8 @@ package com.fastcampus.ch2;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.stereotype.Controller;
@@ -17,43 +19,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("register")
 public class RegisterController {
-	// @RequestMapping("/register/add") // GET°ú POST ¿äÃ»¹æ½Ä ¸ğµÎ Çã¿ë
+	// @RequestMapping("/register/add") // GETê³¼ POST ìš”ì²­ë°©ì‹ ëª¨ë‘ í—ˆìš©
 	
-	@RequestMapping("/add") // GET ¿äÃ»¹æ½Ä¸¸ Çã¿ë
+	@RequestMapping("/add") // GET ìš”ì²­ë°©ì‹ë§Œ í—ˆìš©
 	public String register() {
 		return "registerForm"; // WEB-INF/views/registerForm.jsp
 	}//
 	
 	
 	
-	
-	
-	@InitBinder  // WebDataBinderÀÇ ±âº» Å¸ÀÔº¯È¯ Àü·«À» º¯°æÇÔ. (ÇÑ ÄÁÆ®·Ñ·¯ ³»¿¡¼­¸¸ Àû¿ë)
-	public void toDate(WebDataBinder binder) {		
+	@InitBinder  // WebDataBinderì˜ ê¸°ë³¸ íƒ€ì…ë³€í™˜ ì „ëµì„ ë³€ê²½í•¨. (í•œ ì»¨íŠ¸ë¡¤ëŸ¬ ë‚´ì—ì„œë§Œ ì ìš©)
+	public void toUser(WebDataBinder binder) {		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
-		// ¹ÙÀÎ´õ°´Ã¼.registerCustomEditor(º¯È¯ÇÒ Å¸ÀÔ, º¯È¯ÇÒ Çü½Ä)
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false)); // new CustomDateEditor(³¯Â¥ Çü½Ä °´Ã¼, ºó°ª Çã¿ë¿©ºÎ)
+		// ë°”ì¸ë”ê°ì²´.registerCustomEditor(ë³€í™˜í•  íƒ€ì…, ë³€í™˜í•  í˜•ì‹)
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false)); // new CustomDateEditor(ë‚ ì§œ í˜•ì‹ ê°ì²´, ë¹ˆê°’ í—ˆìš©ì—¬ë¶€)
+		binder.registerCustomEditor(String[].class, new StringArrayPropertyEditor("#")); // new StringArrayPropertyEditor("êµ¬ë¶„ì")
+	
+		// ìë™ ê²€ì¦
+		binder.setValidator(new UserValidator()); 
 		
-		binder.registerCustomEditor(String[].class, new StringArrayPropertyEditor("#")); // new StringArrayPropertyEditor("±¸ºĞÀÚ")
 	}
 	
 	
 	
 	@PostMapping("/save") 
-	public String save(User user, BindingResult result ,Model mod) throws Exception {
-		System.out.println(result); // BindingResult °´Ã¼ ¸Å°³º¯¼ö¸¦ ¼±¾ğ -> Å¸ÀÔ º¯È¯¿¡ ÀÇÇÑ ¿¡·¯ ¸Ş½ÃÁö¸¦ ¸Å°³º¯¼ö¿¡ ´ã¾ÆÁÜ. & ¿¡·¯ È­¸éÀÌ Ãâ·ÂµÇ´Â °ÍÀ» ¸·¾ÆÁÜ. 
+	public String save(@Valid User user, BindingResult result ,Model mod) throws Exception {
+		System.out.println(result); // BindingResult ê°ì²´ ë§¤ê°œë³€ìˆ˜ë¥¼ ì„ ì–¸ -> íƒ€ì… ë³€í™˜ì— ì˜í•œ ì—ëŸ¬ ë©”ì‹œì§€ë¥¼ ë§¤ê°œë³€ìˆ˜ì— ë‹´ì•„ì¤Œ. & ì—ëŸ¬ í™”ë©´ì´ ì¶œë ¥ë˜ëŠ” ê²ƒì„ ë§‰ì•„ì¤Œ. 
+		
+//		// ìˆ˜ë™ ê²€ì¦
+//		UserValidator uv = new UserValidator();
+//		uv.validate(user, result); // BindingResultëŠ” Errorsì¸í„°í˜ì´ìŠ¤ì˜ ìì†ì„.
+//		  
+		
+		if(result.hasErrors()) { // ì—ëŸ¬ê°€ ìˆìœ¼ë©´ trueë¥¼ ë°˜í™˜
+		    return "registerForm"; // ë°˜í™˜í•œ ë·°ì—ì„œ <form: errors> íƒœê·¸ë¥¼ ì´ìš©í•˜ì—¬ ì‹¤ì œ ì—ëŸ¬ë¥¼ ë³´ì—¬ì¤Œ. 
+	}
 		
 		
-		if(!isValid(user)) {
-			String errMsg = "The user is not valid";
-			mod.addAttribute("msg", errMsg);
-			
-			  //return "redirect:/register/add"; 
-			 return "forward:/register/add";
-			
-			//return "redirect:/register/add?msg=" + errMsg;  // URL ÀçÀÛ¼º (rewrite)
-		}
+		////////////////////
+		
+//		if(!isValid(user)) {
+//			String errMsg = "The user is not valid";
+//			mod.addAttribute("msg", errMsg);
+//			
+//			  //return "redirect:/register/add"; 
+//			 return "forward:/register/add";
+//			
+//			//return "redirect:/register/add?msg=" + errMsg;  // URL ì¬ì‘ì„± (rewrite)
+//		}
 		
 		return "registerInfo";  // WEB-INF/views/registerInfo.jsp
 	}
