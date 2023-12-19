@@ -1,0 +1,3 @@
+color=com.fastcampus.ch3.diCopy2.Red
+design=com.fastcampus.ch3.diCopy2.Design
+
