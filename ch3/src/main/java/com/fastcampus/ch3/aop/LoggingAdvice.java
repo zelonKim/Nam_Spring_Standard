@@ -12,13 +12,13 @@ import java.util.Arrays;
 public class LoggingAdvice {
     @Around("execution(* com.fastcampus.ch3.aop.MyMath.add*(..))")
     public Object methodCallLog(ProceedingJoinPoint pjp) throws Throwable {
-        // before advice
+        // before
         long start = System.currentTimeMillis();
         System.out.println("[start]" + pjp.getSignature().getName() + Arrays.toString(pjp.getArgs()));
 
         Object result = pjp.proceed(); // target의 메서드 호출
 
-        // after advice
+        // after
         System.out.println(result);
         System.out.println("[end]" + (System.currentTimeMillis() - start) +"ms");
         return result;
