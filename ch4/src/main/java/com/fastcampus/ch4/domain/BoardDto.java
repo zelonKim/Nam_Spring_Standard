@@ -25,6 +25,7 @@ public class BoardDto {
     }
 
     public BoardDto() { this("","",""); }
+
     public BoardDto(String title, String content, String writer){
         this.title = title;
         this.content = content;

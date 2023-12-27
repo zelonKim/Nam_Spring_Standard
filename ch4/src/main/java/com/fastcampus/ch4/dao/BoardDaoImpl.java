@@ -13,6 +13,7 @@ import java.util.Map;
 public class BoardDaoImpl implements BoardDao {
     @Autowired
     SqlSession session;
+
     String namespace="com.fastcampus.ch4.dao.BoardMapper.";
 
 
@@ -37,6 +38,7 @@ public class BoardDaoImpl implements BoardDao {
         return session.selectOne(namespace+"count");
     }
 
+    /*
     public int searchResultCnt(SearchCondition sc) throws Exception {
         System.out.println("sc in searchResultCnt() = " + sc);
         System.out.println("session = " + session);
@@ -46,8 +48,7 @@ public class BoardDaoImpl implements BoardDao {
     public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
         return session.selectList(namespace+"searchSelectPage", sc);
     }
-
-
+    */
 
 
     public int update(BoardDto dto) throws Exception {
@@ -72,8 +73,6 @@ public class BoardDaoImpl implements BoardDao {
     public int deleteAll() {
         return session.delete(namespace+"deleteAll");
     }
-
-
 
 
 }
