@@ -2,6 +2,7 @@ package com.fastcampus.ch4.service;
 
 import com.fastcampus.ch4.dao.BoardDao;
 import com.fastcampus.ch4.domain.BoardDto;
+import com.fastcampus.ch4.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,19 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardDao boardDao;
 
+    @Override
+    public List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception {
+        return boardDao.searchSelectPage(sc);
+    }
+
+    @Override
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
+        return boardDao.searchResultCnt(sc);
+    }
 
     @Override
     public int write(BoardDto boardDto) throws Exception {
+        // throw new Exception("테스트");
         return boardDao.insert(boardDto);
     }
 

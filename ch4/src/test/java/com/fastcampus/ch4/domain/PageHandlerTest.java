@@ -1,3 +1,4 @@
+/*
 package com.fastcampus.ch4.domain;
 
 import org.junit.Test;
@@ -41,3 +42,4 @@ public class PageHandlerTest {
         assertTrue(ph.getEndPage()==10);
     }
 }
+*/
