@@ -6,5 +6,7 @@
 <typeAliases>
     <typeAlias alias="BoardDto" type="com.fastcampus.ch4.domain.BoardDto"/>
     <typeAlias alias="SearchCondition" type="com.fastcampus.ch4.domain.SearchCondition"/>
+    <typeAlias alias="CommentDto" type="com.fastcampus.ch4.domain.CommentDto" />
+    <!--Dto타입을 패키지명 없이 바로 사용할 수 있도록 등록해줌.-->
 </typeAliases>
 </configuration>

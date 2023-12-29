@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fastcampus.ch4.dao.CommentMapper">
+
+    <delete id="deleteAll" parameterType="int">
+        DELETE FROM comment
+        WHERE bno = #{bno}
+    </delete>
+
+    <select id="count" parameterType="int" resultType="int">
+        SELECT count(*) FROM comment
+        WHERE bno=#{bno}
+    </select>
+
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM comment WHERE cno=#{cno} AND commenter=#{commenter}
+    </delete> <!-- comment 테이블에서 작성자가 asdf이고, cno가 10인 로우를 삭제함.-->
+
+
+    <insert id="insert" parameterType="CommentDto">
+        INSERT INTO comment
+            (bno, pcno, comment, commenter, reg_date, up_date)
+        VALUES
+            (#{bno}, #{pcno}, #{comment}, #{commenter}, now(), now())
+    </insert>  <!-- comment 테이블에 bno는 2 / pcno는 0 / comment는 nice to meet you / commenter는 asdf인 로우를 추가함.-->
+
+
+
+
+    <select id="selectAll" parameterType="int" resultType="CommentDto">
+        SELECT cno, bno, pcno, comment, commenter, reg_date, up_date
+        FROM comment
+        WHERE bno = #{bno}
+        ORDER BY reg_date ASC, cno ASC
+    </select> <!-- comment 테이블에서 bno가 1인 로우를 모두 조회함.-->
+
+
+
+    <select id="select" parameterType="int" resultType="CommentDto">
+        SELECT cno, bno, pcno, comment, commenter, reg_date, up_date
+        FROM comment
+        WHERE cno = #{cno}
+    </select>
+
+
+    <update id="update" parameterType="CommentDto">
+        UPDATE comment
+        SET comment=#{comment}, up_date=now()
+        WHERE cno=#{cno} AND commenter=#{commenter}
+    </update> <!-- comment 테이블에서 cno가 12이고, 작성자가 asdf인 로우의 댓글을 How are you로 수정함.-->
+
+</mapper>
+

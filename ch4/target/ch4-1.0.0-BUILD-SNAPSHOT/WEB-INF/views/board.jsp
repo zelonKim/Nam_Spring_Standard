@@ -81,34 +81,40 @@
         <li><a href=""><i class="fa fa-search"></i></a></li>
     </ul>
 </div>
+
 <script>
     let msg = "${msg}";
     if(msg=="WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.");
     if(msg=="MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.");
 </script>
+
 <div class="container">
     <h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기"}</h2>
     <form id="form" class="frm" action="" method="post">
         <input type="hidden" name="bno" value="${boardDto.bno}">
-
         <input name="title" type="text" value="<c:out value='${boardDto.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
         <textarea name="content" rows="20" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value="${boardDto.content}"/></textarea><br>
 
         <c:if test="${mode eq 'new'}">
             <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>
         </c:if>
+
         <c:if test="${mode ne 'new'}">
             <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>
         </c:if>
+
         <c:if test="${boardDto.writer eq loginId}">
             <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
             <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
         </c:if>
+
         <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
     </form>
 </div>
+
 <script>
     $(document).ready(function(){
+
         let formCheck = function() {
             let form = document.getElementById("form");
             if(form.title.value=="") {
@@ -125,10 +131,14 @@
             return true;
         }
 
+
+        // '글쓰기' 버튼을 눌렀을 때
         $("#writeNewBtn").on("click", function(){
             location.href="<c:url value='/board/write'/>";
         });
 
+
+        // '등록' 버튼을 눌렀을 때
         $("#writeBtn").on("click", function(){
             let form = $("#form");
             form.attr("action", "<c:url value='/board/write'/>");
@@ -138,26 +148,29 @@
                 form.submit();
         });
 
+
+        // '수정' 버튼을 눌렀을 때
         $("#modifyBtn").on("click", function(){
             let form = $("#form");
             let isReadonly = $("input[name=title]").attr('readonly');
 
-            // 1. 읽기 상태이면, 수정 상태로 변경
-            if(isReadonly=='readonly') {
-                $(".writing-header").html("게시판 수정");
-                $("input[name=title]").attr('readonly', false);
-                $("textarea").attr('readonly', false);
-                $("#modifyBtn").html("<i class='fa fa-pencil'></i> 등록");
-                return;
-            }
-
-            // 2. 수정 상태이면, 수정된 내용을 서버로 전송
-            form.attr("action", "<c:url value='/board/modify${searchCondition.queryString}'/>");
-            form.attr("method", "post");
-            if(formCheck())
-                form.submit();
+                // 1. 읽기 전용을 해제함.
+                if(isReadonly=='readonly') {
+                    $(".writing-header").html("게시판 수정");
+                    $("input[name=title]").attr('readonly', false);
+                    $("textarea").attr('readonly', false);
+                    $("#modifyBtn").html("<i class='fa fa-pencil'></i> 등록");
+                    return;
+                }
+                // 2. 수정된 내용을 서버로 전송함.
+                form.attr("action", "<c:url value='/board/modify${searchCondition.queryString}'/>");
+                form.attr("method", "post");
+                if(formCheck())
+                    form.submit();
         });
 
+
+        // '삭제' 버튼을 눌렀을 때
         $("#removeBtn").on("click", function(){
             if(!confirm("정말로 삭제하시겠습니까?")) return;
 
@@ -167,6 +180,8 @@
             form.submit();
         });
 
+
+        // '목록' 버튼을 눌렀을 때
         $("#listBtn").on("click", function(){
             location.href="<c:url value='/board/list${searchCondition.queryString}'/>";
         });
