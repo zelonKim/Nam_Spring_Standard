@@ -11,8 +11,14 @@ public class SimpleRestController {
 //        return "ajax";
 //    }
 
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
+
+
     @PostMapping("/send")
-    @ResponseBody // 클래스에 @RestController 애너테이션을 붙일 경우, 메서드에서 @ResponseBody 애너테이션을 생략할 수 있음.
+    @ResponseBody
     public Person test(@RequestBody Person p) { // jackson-databind가 클라이언트로부터 요청받은 'JSON문자열'을 '자바객체'로 변환해줌.
         // @RequestBody는 요청 바디(본문)를 매개변수에 담아줌.
         System.out.println(p); // Person{name='abc', age=10}

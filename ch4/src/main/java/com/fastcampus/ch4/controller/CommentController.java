@@ -121,6 +121,7 @@ public class CommentController {
 
     @PostMapping("/comments")  // POST  http://localhost/ch4/comments?bno=2
     public ResponseEntity<String> write(@RequestBody CommentDto dto, Integer bno, HttpSession session) {
+        // String commenter = (String)session.getAttribute("id");
         String commenter = "asdf";
 
         dto.setCommenter(commenter);
@@ -151,8 +152,13 @@ public class CommentController {
 
 
 
+
     @PatchMapping("/comments/{cno}")  // PATCH  http://localhost/ch4/comments/12
-    public ResponseEntity<String> modify(@PathVariable Integer cno, @RequestBody CommentDto dto) {
+    public ResponseEntity<String> modify(@PathVariable Integer cno, @RequestBody CommentDto dto, HttpSession session) {
+        // String commenter = (String)session.getAttribute("id");
+        String commenter = "asdf";
+
+        dto.setCommenter(commenter);
         dto.setCno(cno);
            /*
                 // 요청 헤더

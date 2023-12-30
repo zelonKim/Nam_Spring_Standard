@@ -31,11 +31,13 @@
 
 
     <select id="selectAll" parameterType="int" resultType="CommentDto">
-        SELECT cno, bno, pcno, comment, commenter, reg_date, up_date
+        SELECT cno, bno, ifnull(pcno, cno) as pcno, comment, commenter, reg_date, up_date
         FROM comment
         WHERE bno = #{bno}
-        ORDER BY reg_date ASC, cno ASC
-    </select>
+        ORDER BY pcno ASC, cno ASC;
+    </select> <!-- comment 테이블에서 bno가 1인 로우를 모두 조회함.-->
+
+
 
     <select id="select" parameterType="int" resultType="CommentDto">
         SELECT cno, bno, pcno, comment, commenter, reg_date, up_date
@@ -43,11 +45,12 @@
         WHERE cno = #{cno}
     </select>
 
+
     <update id="update" parameterType="CommentDto">
         UPDATE comment
         SET comment=#{comment}, up_date=now()
         WHERE cno=#{cno} AND commenter=#{commenter}
-    </update>
+    </update> <!-- comment 테이블에서 cno가 12이고, 작성자가 asdf인 로우의 댓글을 How are you로 수정함.-->
 
 </mapper>
 
